@@ -16,6 +16,5 @@
         "psr-0": {
             "Ehesp\\SteamLogin": "src/"
         }
-    },
-    "minimum-stability": "dev"
+    }
 }
