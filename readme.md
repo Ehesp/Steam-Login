@@ -10,7 +10,7 @@ Begin by installing this package via Composer:
 ```php
 {
 	"require": {
-		"ehesp/steam-login": "dev-master"
+		"ehesp/steam-login": "1.0.0"
 	}
 }
 ```
