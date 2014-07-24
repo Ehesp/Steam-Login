@@ -90,6 +90,8 @@ Route::get('/', function()
 ```
 ## Changing the return URL
 
+> The return URL must be a valid URL which contains either the http or https URI Scheme.
+
 If you want your users to be sent to a specific URL/route after login, this is easily done. Simply add the URL as a parameter in the `url()` method:
 
 ```
@@ -110,3 +112,7 @@ Then simply access this in the url method:
 SteamLogin::url(Config::get('steam.login'));
 // SteamLogin::url(URL::to('login'));
 ```
+## To Dos
+
+- Add tests with PHPUnit
+- Integrate for other frameworks; CodeIgniter / Symfony 2
