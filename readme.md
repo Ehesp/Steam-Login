@@ -51,7 +51,7 @@ use Ehesp\SteamLogin\SteamLogin;
 $login = new SteamLogin();
 echo $login->url();
 ```
-Once authenticated, Steam will return to your website root and attached GET parameters, which must be validated:
+Once authenticated, Steam will return to your website root with attached GET parameters, which must be validated:
 
 ```
 // index.php
@@ -60,7 +60,7 @@ use Ehesp\SteamLogin\SteamLogin;
 $login = new SteamLogin();
 echo $login->validate();
 ```
-If everything was successful, the users Steam Community ID will be returned, else an Exception will be thrown.
+If everything was successful, the users Steam Community ID will be returned, or if anything went wrong an Exception will be thrown.
 
 ### Laravel
 
@@ -87,7 +87,7 @@ Route::get('/', function()
 {
 	return SteamLogin::validate();
 });
-
+```
 ## Changing the return URL
 
 If you want your users to be sent to a specific URL/route after login, this is easily done. Simply add the URL as a parameter in the `url()` method:
