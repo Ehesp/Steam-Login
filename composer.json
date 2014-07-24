@@ -16,5 +16,8 @@
         "psr-0": {
             "Ehesp\\SteamLogin": "src/"
         }
+    },
+    "suggest": {
+        "koraktor/steam-condenser": "Library for querying the Steam Community, Source and GoldSrc game servers as well as the Steam master servers."
     }
 }
