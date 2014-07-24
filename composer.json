@@ -1,7 +1,7 @@
 {
     "name": "ehesp/steam-login",
     "description": "A simple PHP Steam login and validation package",
-    "keywords": ["steam"]
+    "keywords": ["steam"],
     "require": {
         "php": ">=5.3.0"
     },
