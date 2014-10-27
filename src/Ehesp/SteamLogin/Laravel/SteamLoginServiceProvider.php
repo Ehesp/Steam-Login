@@ -1,10 +1,11 @@
-<?php namespace Ehesp\SteamLogin\Laravel;
+<?php
+namespace Ehesp\SteamLogin\Laravel;
 
 use Illuminate\Support\ServiceProvider;
 use Ehesp\SteamLogin\SteamLogin;
 
-class SteamLoginServiceProvider extends ServiceProvider {
-
+class SteamLoginServiceProvider extends ServiceProvider
+{
 	/**
 	 * Register the service provider.
 	 *
@@ -12,8 +13,7 @@ class SteamLoginServiceProvider extends ServiceProvider {
 	 */
 	public function register()
 	{
-		$this->app->bindShared('steamlogin', function($app)
-		{
+		$this->app->bindShared('steamlogin', function($app) {
 			return new SteamLogin();
 		});
 	}
