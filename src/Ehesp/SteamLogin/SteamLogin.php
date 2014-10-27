@@ -62,54 +62,56 @@ class SteamLogin implements SteamLoginInterface {
      * @return string
      */
 	public function validate()
-	{
-		try {
-			$params = array(
-				'openid.assoc_handle'	=> $_GET['openid_assoc_handle'],
-				'openid.signed'			=> $_GET['openid_signed'],
-				'openid.sig'			=> $_GET['openid_sig'],
-				'openid.ns'				=> 'http://specs.openid.net/auth/2.0',
-			);
+    {
+    	$response = null;
 
-			$signed = explode(',', $_GET['openid_signed']);
+    	try {
+    		$params = array(
+    			'openid.assoc_handle'	=> $_GET['openid_assoc_handle'],
+    			'openid.signed'			=> $_GET['openid_signed'],
+    			'openid.sig'			=> $_GET['openid_sig'],
+    			'openid.ns'				=> 'http://specs.openid.net/auth/2.0',
+    			);
 
-			foreach ($signed as $item)
-			{
-				$val = $_GET['openid_' . str_replace('.', '_', $item)];
-				$params['openid.' . $item] = get_magic_quotes_gpc() ? stripslashes($val) : $val; 
-			}
+    		$signed = explode(',', $_GET['openid_signed']);
 
-			$params['openid.mode'] = 'check_authentication';
+    		foreach ($signed as $item)
+    		{
+    			$val = $_GET['openid_' . str_replace('.', '_', $item)];
+    			$params['openid.' . $item] = get_magic_quotes_gpc() ? stripslashes($val) : $val; 
+    		}
 
-			$data =  http_build_query($params);
+    		$params['openid.mode'] = 'check_authentication';
 
-			$context = stream_context_create(array(
-				'http' => array(
-					'method'  => 'POST',
-					'header'  => 
-						"Accept-language: en\r\n".
-						"Content-type: application/x-www-form-urlencoded\r\n" .
-						"Content-Length: " . strlen($data) . "\r\n",
-					'content' => $data,
-				),
-			));
+    		$data =  http_build_query($params);
 
-			$result = file_get_contents(self::$openId, false, $context);
+    		$context = stream_context_create(array(
+    			'http' => array(
+    				'method'  => 'POST',
+    				'header'  => 
+    				"Accept-language: en\r\n".
+    				"Content-type: application/x-www-form-urlencoded\r\n" .
+    				"Content-Length: " . strlen($data) . "\r\n",
+    				'content' => $data,
+    				),
+    			));
 
-			preg_match("#^http://steamcommunity.com/openid/id/([0-9]{17,25})#", $_GET['openid_claimed_id'], $matches);
-			
-			$steamID64 = is_numeric($matches[1]) ? $matches[1] : 0;
+    		$result = file_get_contents(self::$openId, false, $context);
 
-			$response = preg_match("#is_valid\s*:\s*true#i", $result) == 1 ? $steamID64 : null;
+    		preg_match("#^http://steamcommunity.com/openid/id/([0-9]{17,25})#", $_GET['openid_claimed_id'], $matches);
+    		
+    		$steamID64 = is_numeric($matches[1]) ? $matches[1] : 0;
 
-			if (is_null($response))
-			{
-				throw new Exception('The Steam login request timed out or was invalid');
-			}
+    		$response = preg_match("#is_valid\s*:\s*true#i", $result) == 1 ? $steamID64 : null;
 
-			return $response;
-		} catch (Exception $e) {
-			return null;
-		}
-	}
+    	} catch (Exception $e) { 
+    		$response = null;
+    	}
+    	
+    	if (is_null($response)){
+    		throw new Exception('The Steam login request timed out or was invalid');
+    	}
+    	
+    	return $response;
+    }
 }
