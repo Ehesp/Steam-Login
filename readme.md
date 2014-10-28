@@ -11,7 +11,7 @@ Begin by installing this package via Composer:
 ```
 {
     "require": {
-		"ehesp/steam-login": "1.0.0"
+		"ehesp/steam-login": "~1.0.1"
 	}
 }
 ```
