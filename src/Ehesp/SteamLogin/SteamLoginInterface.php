@@ -1,9 +1,8 @@
-<?php namespace Ehesp\SteamLogin;
+<?php
+namespace Ehesp\SteamLogin;
 
-interface SteamLoginInterface {
-
-	public function url($return);
-
+interface SteamLoginInterface
+{
+    public function url($return);
 	public function validate();
-
 }
