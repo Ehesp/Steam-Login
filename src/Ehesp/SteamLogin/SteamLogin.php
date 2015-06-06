@@ -60,7 +60,7 @@ class SteamLogin implements SteamLoginInterface
      *
      * @return string
      */
-    public function validate()
+    public function validate($timeout = 30)
     {
         $response = null;
 
@@ -92,6 +92,7 @@ class SteamLogin implements SteamLoginInterface
                     "Content-Length: " . strlen($data) . "\r\n",
                     'content' => $data,
                     ),
+                'timeout' => $timeout
             ));
 
             $result = file_get_contents(self::$openId, false, $context);
