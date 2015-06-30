@@ -45,7 +45,7 @@ Before starting, please note you're unable to redirect a user to the Steam OpenI
 
 ### Standalone
 
-Ensure your script requires the requires the Composer auto file: `require './vendor/autoload.php';`
+Ensure your script requires the Composer autoload file: `require './vendor/autoload.php';`
 Then, use the `SteamLogin` class and create a new instance of it:
 
 ```php
@@ -105,7 +105,7 @@ Route::get('/', function()
 
 ## Changing the return URL
 
-The return URL must be a valid URL which contains either the http or https URI Scheme.
+The return URL must be a valid URL which contains either the http or https URI scheme.
 
 If you want your users to be sent to a specific URL/route after login, this is easily done. Simply add the URL as a parameter in the `url()` method:
 
@@ -125,7 +125,7 @@ return array (
 );
 ```
 
-Then simply access this in the url method:
+Then simply access this in the `url` method:
 
 ```php
 <?php
