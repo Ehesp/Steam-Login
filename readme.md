@@ -37,7 +37,7 @@ If you're using the Laravel 4 PHP Framework, a service provider is available:
 	'SteamLogin' => 'Ehesp\SteamLogin\Laravel\Facades\SteamLogin',
 ),
 ```
-You how have access to the `SteamLogin` facade.
+You now have access to the `SteamLogin` facade.
 
 ## Usage
 
