@@ -91,8 +91,8 @@ class SteamLogin implements SteamLoginInterface
                     "Content-type: application/x-www-form-urlencoded\r\n" .
                     "Content-Length: " . strlen($data) . "\r\n",
                     'content' => $data,
+                    'timeout' => $timeout
                     ),
-                'timeout' => $timeout
             ));
 
             $result = file_get_contents(self::$openId, false, $context);
