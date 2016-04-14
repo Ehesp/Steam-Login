@@ -32,7 +32,7 @@ class SteamLogin implements SteamLoginInterface
      * @param string $return A custom return to URL
      * @return string
      */
-    public function url($return = null)
+    public function url($return = null, $altRealm = null)
     {
         $useHttps = !empty($_SERVER['HTTPS']) || (!empty($_SERVER['HTTP_X_FORWARDED_PROTO']) && $_SERVER['HTTP_X_FORWARDED_PROTO'] == 'https');
         if (!is_null($return)) {
@@ -41,14 +41,17 @@ class SteamLogin implements SteamLoginInterface
             }
         }
         else {
-            $return = ($useHttps ? 'https' : 'http') . '://' . $_SERVER['HTTP_HOST'] . $_SERVER['SCRIPT_NAME'];
+            if($altRealm == null)
+                $return = ($useHttps ? 'https' : 'http') . '://' . $_SERVER['HTTP_HOST'] . $_SERVER['SCRIPT_NAME'];
+            else
+                $return = $altRealm . $_SERVER['SCRIPT_NAME'];
         }
 
         $params = array(
             'openid.ns'         => 'http://specs.openid.net/auth/2.0',
             'openid.mode'       => 'checkid_setup',
             'openid.return_to'  => $return,
-            'openid.realm'      => ($useHttps ? 'https' : 'http') . '://' . $_SERVER['HTTP_HOST'],
+            'openid.realm'      => $altRealm != null ? $altRealm : (($useHttps ? 'https' : 'http') . '://' . $_SERVER['HTTP_HOST']),
             'openid.identity'   => 'http://specs.openid.net/auth/2.0/identifier_select',
             'openid.claimed_id' => 'http://specs.openid.net/auth/2.0/identifier_select',
         );
