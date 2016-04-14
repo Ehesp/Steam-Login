@@ -34,20 +34,21 @@ class SteamLogin implements SteamLoginInterface
      */
     public function url($return = null)
     {
+        $useHttps = !empty($_SERVER['HTTPS']) || (!empty($_SERVER['HTTP_X_FORWARDED_PROTO']) && $_SERVER['HTTP_X_FORWARDED_PROTO'] == 'https');
         if (!is_null($return)) {
             if (!$this->validateUrl($return)) {
                 throw new Exception('The return URL must be a valid URL with a URI Scheme or http or https.');
             }
         }
         else {
-            $return = (!empty($_SERVER['HTTPS']) ? 'https' : 'http') . '://' . $_SERVER['HTTP_HOST'] . $_SERVER['SCRIPT_NAME'];
+            $return = ($useHttps ? 'https' : 'http') . '://' . $_SERVER['HTTP_HOST'] . $_SERVER['SCRIPT_NAME'];
         }
 
         $params = array(
             'openid.ns'         => 'http://specs.openid.net/auth/2.0',
             'openid.mode'       => 'checkid_setup',
             'openid.return_to'  => $return,
-            'openid.realm'      => (!empty($_SERVER['HTTPS']) ? 'https' : 'http') . '://' . $_SERVER['HTTP_HOST'],
+            'openid.realm'      => ($useHttps ? 'https' : 'http') . '://' . $_SERVER['HTTP_HOST'],
             'openid.identity'   => 'http://specs.openid.net/auth/2.0/identifier_select',
             'openid.claimed_id' => 'http://specs.openid.net/auth/2.0/identifier_select',
         );
