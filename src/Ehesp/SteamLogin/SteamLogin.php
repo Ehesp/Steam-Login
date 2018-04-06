@@ -101,7 +101,7 @@ class SteamLogin implements SteamLoginInterface
 
             $result = file_get_contents(self::$openId, false, $context);
 
-            preg_match("#^http://steamcommunity.com/openid/id/([0-9]{17,25})#", $_GET['openid_claimed_id'], $matches);
+            preg_match("#^https://steamcommunity.com/openid/id/([0-9]{17,25})#", $_GET['openid_claimed_id'], $matches);
 
             $steamID64 = is_numeric($matches[1]) ? $matches[1] : 0;
 
